@@ -1,4 +1,4 @@
-# Bloodaxe Poetry App - General Introduction
+# Bloodaxe Poetry App - Server files instructions
 
 
 
