@@ -1,0 +1,827 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    
+    <script src="tinymce/tinymce.min.js"></script>
+    
+    <style>
+        ul#options li {
+            display: inline-block;
+            border: black 3px solid;
+            margin: -3px;
+            padding: 3px;
+        }
+        
+        li.active {
+            background-color: black;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        form {
+            border: black 3px solid;
+            padding: 3px;
+        }
+    </style>
+</head>    
+
+
+
+
+
+<body>
+    
+    
+    <!--EDITING OPTIONS TOPNAV --> 
+    
+    <ul id="options">
+        <li id="new-poet-option">Add new poet</li>
+        <li id="edit-poet-option">Edit existing poet</li>
+        <li id="new-category-option">Add new category</li>
+        <li id="edit-category-option">Edit category</li>
+        <li id="update-news-option">Update news</li>
+    </ul>
+
+    
+    <!-- ADD NEW POET WEBFORM -->
+
+    <form class="hidden" id="new-poet" action="new-poet.php" method="POST" enctype="multipart/form-data">
+        
+        <strong>AUTHOR</strong>
+        <br /><br />
+        
+        First name: <br />
+        <input type="text" name="first_name" required>
+        <br /><br />
+        
+        Last name: <br />
+        <input type="text" name="last_name">
+        <br /><br />
+        
+        Bio: <br />
+        <textarea class="rich-text" id="bio-add" name="bio" cols="60" placeholder="Please follow formatting guidelines"></textarea>
+        <br /><br />
+
+        Link to author page: <br />
+        <input type="text" name="author_link" required>
+        <br /><br />
+        
+        Author photo: <br />
+        <input type="file" name="photo" accept="image/*">
+        <br /><br />
+        
+        <br /><br />
+        
+        <strong>POEM</strong>
+        <br /><br />
+        
+        Title: <br />
+        <input type="text" name="poem_title" required>
+        <br /><br />
+        
+        Epigraph text: <br />
+        <textarea class="rich-text" id="epigraph-add" name="epigraph_text" cols="60" placeholder="Please follow formatting guidelines"></textarea>
+        <br /><br />
+
+        Poem text: <br />
+        <textarea class="rich-text" id="poem-add" name="poem_text" cols="60" placeholder="Please follow formatting guidelines"></textarea>
+        <br /><br />
+
+        Title of featured book: <br />
+        <input type="text" name="featured_book_title" required>
+        <br /><br />
+
+        Link to featured book: <br />
+        <input type="text" name="featured_book_link" required>
+        <br /><br />
+
+        Translation? <br />
+        <input type="radio" name="translated" value="No" checked> No <br />
+        <input type="radio" name="translated" value="Yes"> Yes
+        <br /><br />
+
+        <span class="hidden" id="translation_text_add">
+        Original epigraph: <br />
+        <textarea class="rich-text" id="original-epigraph-add" name="original_epigraph" cols="60" placeholder="Please follow formatting guidelines"></textarea>
+        <br /><br />
+        
+        Original Text: <br />
+        <textarea class="rich-text" id="translation-add" name="original_text" cols="60" placeholder="Please follow formatting guidelines"></textarea>
+        <br /><br />
+        
+        Translator's first name: <br />
+        <input type="text" name="translator_first_name">
+        <br /><br />
+        
+        Translator's last name: <br />
+        <input type="text" name="translator_last_name">
+        <br /><br />
+
+        </span>
+        <br />
+        
+        <br /><br />
+        
+        <strong>MEDIA</strong>
+        <br /><br />
+        
+        Audio? <br />
+        <input type="radio" name="audio" value="No" checked> No <br />
+        <input type="radio" name="audio" value="Yes"> Yes
+        <br /><br />
+        
+        <span class="hidden" id="audio_embed">
+        Audio embed code: <br />
+        <input type="text" name="audio_embed" placeholder="SoundCloud embed code">
+        <br /><br />
+        </span>
+        <br />
+        
+        Video? <br />
+        <input type="radio" name="video" value="No" checked> No <br />
+        <input type="radio" name="video" value="Yes"> Yes
+        <br /><br />
+        
+        <span class="hidden" id="video_embed">
+        Video embed code: <br />
+        <input type="text" name="video_embed" placeholder="Vimeo embed code">
+        <br /><br />
+        
+        Video start time: (if applicable) <br />
+        <input type="text" name="video_start" placeholder="Please enter a numerical value in seconds (eg. '125' for 2 minutes, 5 seconds.">
+        <br /><br />
+
+        Video end time: (if applicable) <br />
+        <input type="text" name="video_end" placeholder="Please enter a numerical value in seconds (eg. '125' for 2 minutes, 5 seconds.">
+        <br /><br />
+
+        </span>
+        <br /><br />
+        
+        <strong>THEMES</strong>
+        <br /><br />
+
+        Main themes:<br />
+        <textarea name="themes" cols="60"  placeholder="Please enter themes separated by commas"></textarea>
+        <br /><br />
+        
+        <input type="submit" value="Submit" name="submit">
+        
+    </form>
+    
+    
+    <!-- EDIT EXISTING ENTRY WEBFORM -->
+    
+    
+    <!-- STEP 1 -->
+    <form class="hidden" id="edit-poet">
+        <select id="poet-selection">
+            <!-- populated from PHP -->
+        </select>
+        <input type="submit" value="Edit">
+    </form>    
+        
+    <!-- STEP 2 -->
+    <form class="hidden" id="edit-poet-step2" action="edit-poet.php" method="POST" enctype="multipart/form-data">
+        
+        <strong>AUTHOR</strong>
+        <br /><br />
+        
+        <input type="text" name="id_number" style="display:none">
+        
+        First name: <br />
+        <input type="text" name="first_name" required>
+        <br /><br />
+        
+        Last name: <br />
+        <input type="text" name="last_name">
+        <br /><br />
+        
+        Bio: <br />
+        <textarea class="rich-text" id="bio-edit" name="bio" cols="60"  placeholder="Please follow formatting guidelines"></textarea>
+        <br /><br />
+
+        Link to author page: <br />
+        <input type="text" name="author_link" required>
+        <br /><br />
+        
+        Author photo: <br />
+        <input type="file" name="photo" accept="image/*">
+        <br /><br />
+        
+        <br /><br />
+        
+        <strong>POEM</strong>
+        <br /><br />
+        
+        Title: <br />
+        <input type="text" name="poem_title" required>
+        <br /><br />
+        
+        Epigraph text: <br />
+        <textarea class="rich-text" id="epigraph-edit" name="epigraph_text" cols="60" placeholder="Please follow formatting guidelines"></textarea>
+        <br /><br />
+
+        Poem text: <br />
+        <textarea class="rich-text" id="poem-edit" name="poem_text" cols="60" placeholder="Please follow formatting guidelines"></textarea>
+        <br /><br />
+
+        Title of featured book: <br />
+        <input type="text" name="featured_book_title" required>
+        <br /><br />
+
+        Link to featured book: <br />
+        <input type="text" name="featured_book_link" required>
+        <br /><br />
+
+        Translation? <br />
+        <input type="radio" name="translated" value="No" checked> No <br />
+        <input type="radio" name="translated" value="Yes"> Yes
+        <br /><br />
+
+        <span id="translation_text_edit">
+        Original epigraph: <br />
+        <textarea class="rich-text" id="original-epigraph-edit" name="original_epigraph" cols="60" placeholder="Please follow formatting guidelines"></textarea>
+        <br /><br />
+
+        Original Text: <br />
+        <textarea class="rich-text" id="translation-edit" name="original_text" cols="60" placeholder="Please follow formatting guidelines"></textarea>
+        <br /><br />
+        
+        Translator's first name: <br />
+        <input type="text" name="translator_first_name">
+        <br /><br />
+        
+        Translator's last name: <br />
+        <input type="text" name="translator_last_name">
+        <br /><br />
+
+        </span>
+        <br />
+        
+        <br /><br />
+        
+        <strong>MEDIA</strong>
+        <br /><br />
+        
+        Audio? <br />
+        <input type="radio" name="audio" value="No"> No <br />
+        <input type="radio" name="audio" value="Yes"> Yes
+        <br /><br />
+        
+        <span class="hidden" id="audio_embed">
+        Audio embed code: <br />
+        <input type="text" name="audio_embed" placeholder="SoundCloud embed code">
+        <br /><br />
+        </span>
+        <br />
+        
+        Video? <br />
+        <input type="radio" name="video" value="No" checked> No <br />
+        <input type="radio" name="video" value="Yes"> Yes
+        <br /><br />
+        
+        <span class="hidden" id="video_embed">
+        Video embed code: <br />
+        <input type="text" name="video_embed" placeholder="Vimeo embed code">
+        <br /><br />
+        
+        Video start time: (if applicable) <br />
+        <input type="text" name="video_start" placeholder="Please enter a numerical value in seconds (eg. '125' for 2 minutes, 5 seconds.">
+        <br /><br />
+
+        Video end time: (if applicable) <br />
+        <input type="text" name="video_end" placeholder="Please enter a numerical value in seconds (eg. '125' for 2 minutes, 5 seconds.">
+        <br /><br />
+
+        </span>
+        <br /><br />
+        
+        <strong>THEMES</strong>
+        <br /><br />
+
+        Main themes:<br />
+        <textarea name="themes" cols="60" placeholder="Please enter themes separated by commas"></textarea>
+        <br /><br />
+        
+        User-added themes:<br />
+        <textarea name="user_themes" cols="60"></textarea>
+        <br /><br />
+
+        <input type="submit" value="Submit" name="submit">
+        
+    </form>
+    
+
+    <!-- NEW CATEGORY WEBFORM -->
+
+    <form class="hidden" id="new-category" action="new-category.php" method="POST" enctype="multipart/form-data">
+        <!-- Name category and select poets to include -->
+        Category name: <br />
+        <input type="text" name="category_name" placeholder="Please enter the name of the new category">
+        <br /><br />
+
+        <div id="new-category-poets">
+            <!-- populated from poets_array -->
+        </div>
+        <br /><br />
+
+        <input type="submit" value="Submit" name="submit">
+    </form>
+
+
+    <!-- EDIT CATEGORY WEBFORM -->
+    
+    <!-- STEP 1 -->
+    <form class="hidden" id="edit-category">
+        <select id="category-selection">
+            <!-- Dropdown of categories -->
+        </select>
+        <input type="submit" value="Edit">
+    </form>    
+        
+    <!-- STEP 2 -->
+    <form class="hidden" id="edit-category-step2" action="edit-category.php" method="POST" enctype="multipart/form-data">
+        <!-- list of poets with populated tickboxes -->
+        <div id="edit-category-poets">
+            <!-- populated from poets_array -->
+        </div>
+        <br /><br />
+
+        <input type="submit" value="Submit" name="submit">
+    </form>
+
+
+    <!-- UPDATE NEWS WEBFORM -->
+
+    <form class="hidden" id="update-news" action="update-news.php" method="POST" enctype="multipart/form-data">
+        
+        Headline: <br />
+        <input type="text" name="news_headline" required>
+        <br /><br />
+
+        Link to news article: <br />
+        <input type="text" name="article_link" required>
+        <br /><br />
+        
+        Article photo: <br />
+        <input type="file" name="news_photo" accept="image/*">
+        <br /><br />
+        
+        
+        <input type="submit" value="Submit" name="submit">
+        
+    </form>
+    
+
+
+
+
+
+
+    <script type="text/javascript" src="jquery-1.12.3.js"></script>
+    <script type="text/javascript">
+
+        //Initialising Rich Text editor
+        tinymce.init({ selector:'textarea.rich-text' });
+
+                
+        //TOP NAV CLICKS
+        $('ul#options li').click(function() {
+            $('ul#options li').removeClass("active");
+            $(this).addClass("active");
+        });
+        
+        $('li#new-poet-option').click(function() {
+            $('form').addClass("hidden");
+            $('form#new-poet').removeClass("hidden");
+        });
+        
+        $('li#edit-poet-option').click(function() {
+            $('form').addClass("hidden");
+            $('form#edit-poet').removeClass("hidden");
+            
+            // RETRIEVING POETS DATA AS JSON FROM AN EXTERNAL DATABASE
+	        
+                var that_array = ["Hey", "you", "guys"];
+                
+                var get_over_here = new XMLHttpRequest();
+                
+                get_over_here.open("GET", "http://bx.sidestep.me/handler.php", true);
+                get_over_here.send();
+                
+                get_over_here.onreadystatechange = function() {
+                    if (get_over_here.readyState == 4 && get_over_here.status == 200) {
+                        
+                        console.log("get_over_here.responseText :");
+                        console.log(get_over_here.responseText);
+
+                        var JSON_text = get_over_here.responseText;
+
+                        var poets_array = JSON.parse(JSON_text);
+
+                        console.log(poets_array);
+                        
+                        
+                        //POPULATING LIST OF EXISTING POETS TO EDIT
+            
+                        $('select#poet-selection').html(
+                        (function() {
+                            var gen_list = "";
+                            for (i = 0; i < poets_array.length; i++) {
+                                gen_list = gen_list.concat(
+                                    "<option id='" + poets_array[i].id_number + "'>"
+                                    + poets_array[i].first_name + " " + poets_array[i].last_name
+                                    + "</option>"
+                                    );	
+                            };
+                            return gen_list;
+                        })()
+                        );                  
+                    };
+                    
+                };
+        });
+
+        $('li#new-category-option').click(function() {
+            $('form').addClass("hidden");
+            $('form#new-category').removeClass("hidden");
+
+            // RETRIEVING POETS DATA AS JSON FROM AN EXTERNAL DATABASE
+	        
+            var get_over_here = new XMLHttpRequest();
+            
+            get_over_here.open("GET", "http://bx.sidestep.me/handler.php", true);
+            get_over_here.send();
+            
+            get_over_here.onreadystatechange = function() {
+                if (get_over_here.readyState == 4 && get_over_here.status == 200) {
+                    
+                    console.log("get_over_here.responseText :");
+                    console.log(get_over_here.responseText);
+
+                    var JSON_text = get_over_here.responseText;
+
+                    var poets_array = JSON.parse(JSON_text);
+
+                    console.log(poets_array);
+                    
+                    
+                    //POPULATING LIST OF POETS FOR NEW CATEGORY
+        
+                    $('div#new-category-poets').html(
+                    (function() {
+                        var gen_list = "";
+                        for (i = 0; i < poets_array.length; i++) {
+                            gen_list = gen_list.concat(
+                                "<input type='checkbox' id='" + poets_array[i].id_number + "' name='" + poets_array[i].id_number + "' value='"
+                                + poets_array[i].first_name + " " + poets_array[i].last_name
+                                + "'>" + poets_array[i].first_name + " " + poets_array[i].last_name + "<br />"
+                                );	
+                        };
+                        return gen_list;
+                    })()
+                    );                  
+                };
+                
+            };
+        });
+        
+        $('li#edit-category-option').click(function() {
+            $('form').addClass("hidden");
+            $('form#edit-category').removeClass("hidden");
+            
+            // RETRIEVING CATEGORIES DATA AS JSON
+	            
+            var get_categories = new XMLHttpRequest();
+                
+            get_categories.open("GET", "http://bx.sidestep.me/categories_handler.php", true);
+            get_categories.send();
+                
+            get_categories.onreadystatechange = function() {
+                    if (get_categories.readyState == 4 && get_categories.status == 200) {
+                        
+                        console.log("get_categories.responseText :");
+                        console.log(get_categories.responseText);
+
+                        var JSON_categories_text = get_categories.responseText;
+
+                        var categories_array = JSON.parse(JSON_categories_text);
+
+                        console.log(categories_array);
+                        
+                        
+                        //POPULATING LIST OF EXISTING CATEGORIES TO EDIT
+            
+                        $('select#category-selection').html(
+                            (function() {
+                                category_names = Object.keys(categories_array[0]);
+
+                                //SORTING CATEGORIES
+                                category_names.sort(function(a, b){
+                                    var nameA = a;
+                                    var nameB = b;
+                                    if (nameA < nameB){ //sort string ascending
+                                        return -1;
+                                    } else {
+                                        if (nameA > nameB){
+                                            return 1;
+                                        } else {
+                                            return 0; //default return value (no sorting)
+                                        }
+                                    }
+                                });
+                                
+                                //DISPLAYING CATEGORIES
+                                gen_list = "";
+                                for (c in category_names) {
+                                    if (category_names[c] != 'id_number') {
+                                        gen_list = gen_list.concat(
+                                            "<option>" + category_names[c] + "</option>"
+                                        );
+                                    }
+                                };
+                                return gen_list;
+                            })()
+                        );                  
+                    };
+                    
+                };
+
+        });
+
+        $('li#update-news-option').click(function() {
+            $('form').addClass("hidden");
+            $('form#update-news').removeClass("hidden");
+        });
+
+        
+        //EDIT POET STEP 1 FORM -- DISPLAYING STEP 2
+
+        $('form#edit-poet input:submit').click(function(){
+            $('form').addClass('hidden');
+            $('form#edit-poet-step2').removeClass('hidden');
+        });
+        
+        $('form#edit-poet').submit(function () {
+            $('form').addClass('hidden');
+            $('form#edit-poet-step2').removeClass('hidden');
+            var selected_poet_number = $('#poet-selection option:selected').attr('id');
+            
+            // RETRIEVING POETS DATA AS JSON FROM AN EXTERNAL DATABASE
+            
+            var get_over_here = new XMLHttpRequest();
+                
+            get_over_here.open("GET", "http://bx.sidestep.me/handler.php", true);
+            get_over_here.send();
+                
+            get_over_here.onreadystatechange = function() {
+                if (get_over_here.readyState == 4 && get_over_here.status == 200) {
+                    
+                    console.log("get_over_here.responseText :");
+                    console.log(get_over_here.responseText);
+
+                    var JSON_text = get_over_here.responseText;
+                    var poets_array = JSON.parse(JSON_text);
+                    selected_array_index = $.map(poets_array, function(obj, index) {
+                        if(obj.id_number == selected_poet_number) {
+                            return index;
+                        }
+                    });
+                    var selected_poet = poets_array[selected_array_index];
+                    console.log(selected_poet);
+                        
+                    //POPULATING EDITING FORM WITH CURRENT POET DATA
+                    
+                    $('form#edit-poet-step2 input:text[name="id_number"]').val(selected_poet.id_number); 
+                    $('form#edit-poet-step2 input:text[name="first_name"]').val(selected_poet.first_name);        
+                    $('form#edit-poet-step2 input:text[name="last_name"]').val(selected_poet.last_name);
+                    $('form#edit-poet-step2 textarea[name="bio"]').text(selected_poet.bio);
+                    //tinyMCE.get('bio-edit').setContent(selected_poet.bio);
+                    $('form#edit-poet-step2 input:text[name="author_link"]').val(selected_poet.author_link);
+                    //AUTHOR PHOTO - problem for another day
+                    $('form#edit-poet-step2 input:text[name="poem_title"]').val(selected_poet.poem_title);        
+                    if (selected_poet.epigraph_text != null) {
+                        tinyMCE.get('epigraph-edit').setContent(selected_poet.epigraph_text);
+                    }
+                    $('form#edit-poet-step2 textarea[name="poem_text"]').text(selected_poet.poem_text);
+                    //tinyMCE.get('poem-edit').setContent(selected_poet.poem_text);
+                    $('form#edit-poet-step2 input:text[name="featured_book_link"]').val(selected_poet.featured_book_link);
+                    $('form#edit-poet-step2 input:text[name="featured_book_title"]').val(selected_poet.featured_book_title);
+                    if (selected_poet.translated == 1) {
+                        console.log("translated poet")
+                        $('form#edit-poet-step2 input:radio[name="translated"][value="No"]').prop('checked', false);
+                        $('form#edit-poet-step2 input:radio[name="translated"][value="Yes"]').prop('checked', true);
+                        $('form#edit-poet-step2 span#translation_text_edit').removeClass('hidden');
+                        if (selected_poet.original_epigraph != null) {
+                            $('form#edit-poet-step2 textarea[name="original_epigraph"]').text(selected_poet.original_epigraph);
+                            //tinyMCE.get('original-epigraph-edit').setContent(selected_poet.original_epigraph);
+                        }
+                        //$('form#edit-poet-step2 textarea[name="original_text"]').text(selected_poet.original_text);
+                        if (selected_poet.original_text != null) {
+                            tinyMCE.get('translation-edit').setContent(selected_poet.original_text);
+                        }
+                        $('form#edit-poet-step2 span#translation_text_edit input:text[name="translator_first_name"]').val(selected_poet.translator_first_name);
+                        $('form#edit-poet-step2 span#translation_text_edit input:text[name="translator_last_name"]').val(selected_poet.translator_last_name)
+                    };
+                    if (selected_poet.translated == 0) {
+                        console.log("not translated poet");
+                        $('form#edit-poet-step2 input:radio[name="translated"][value="Yes"]').prop('checked', false);
+                        $('form#edit-poet-step2 input:radio[name="translated"][value="No"]').prop('checked', true);
+                        $('form#edit-poet-step2 span#translation_text_edit').addClass('hidden');
+                        $('form#edit-poet-step2 span#translation_text_edit textarea[name="original_text"]').text("");
+                        $('form#edit-poet-step2 span#translation_text_edit input:text[name="translator_first_name"]').val("");
+                        $('form#edit-poet-step2 span#translation_text_edit input:text[name="translator_last_name"]').val("")
+                    };
+                    if (selected_poet.audio == 1) {
+                        $('form#edit-poet-step2 input:radio[name="audio"][value="No"]').prop('checked', false);
+                        $('form#edit-poet-step2 input:radio[name="audio"][value="Yes"]').prop('checked', true);
+                        $('form#edit-poet-step2 span#audio_embed').removeClass('hidden');
+                        $('form#edit-poet-step2 span#audio_embed input:text[name="audio_embed"]').val(selected_poet.audio_embed);
+                    };
+                    if (selected_poet.audio == 0) {
+                        $('form#edit-poet-step2 input:radio[name="audio"][value="Yes"]').prop('checked', false);
+                        $('form#edit-poet-step2 input:radio[name="audio"][value="No"]').prop('checked', true);
+                        $('form#edit-poet-step2 span#audio_embed').addClass('hidden');
+                        $('form#edit-poet-step2 span#audio_embed input:text[name="audio_embed"]').val("");
+                    };
+                    if (selected_poet.video == 1) {
+                        $('form#edit-poet-step2 input:radio[name="video"][value="No"]').prop('checked', false);
+                        $('form#edit-poet-step2 input:radio[name="video"][value="Yes"]').prop('checked', true);
+                        $('form#edit-poet-step2 span#video_embed').removeClass('hidden');
+                        $('form#edit-poet-step2 span#video_embed input:text[name="video_embed"]').val(selected_poet.video_embed);
+                        if (selected_poet.video_start != 0) {
+                            $('form#edit-poet-step2 span#video_start input:text[name="video_start"]').val(selected_poet.video_start);
+                        };
+                        if (selected_poet.video_end != 0) {
+                            $('form#edit-poet-step2 span#video_end input:text[name="video_end"]').val(selected_poet.video_end);
+                        }
+                    };
+                    if (selected_poet.video == 0) {
+                        $('form#edit-poet-step2 input:radio[name="video"][value="Yes"]').prop('checked', false);
+                        $('form#edit-poet-step2 input:radio[name="video"][value="No"]').prop('checked', true);
+                        $('form#edit-poet-step2 span#video_embed').addClass('hidden');
+                        $('form#edit-poet-step2 span#video_embed input:text[name="video_embed"]').val("");
+                    };
+                    $('form#edit-poet-step2 textarea[name="themes"]').text(selected_poet.themes);
+                    $('form#edit-poet-step2 textarea[name="user_themes"]').text(selected_poet.user_themes);
+
+                    tinymce.get('bio-add').load();
+                    tinymce.get('bio-edit').load();
+                    tinymce.get('poem-add').load();
+                    tinymce.get('poem-edit').load();
+                                        
+                                        
+                };
+            };
+            return false;
+        });
+
+
+        //EDITING CATEGORIES STEP 1 - DISPLAYING STEP 2
+
+        $('form#edit-category input:submit').click(function(){
+            $('form').addClass('hidden');
+            $('form#edit-category-step2').removeClass('hidden');
+        });
+        
+        $('form#edit-category').submit(function () {
+            $('form').addClass('hidden');
+            $('form#edit-category-step2').removeClass('hidden');
+            //var selected_category_number = $('#category-selection option:selected').attr('id');
+            
+            // RETRIEVING CATEGORIES DATA AS JSON 
+            
+            var get_categories = new XMLHttpRequest();
+                
+            get_categories.open("GET", "http://bx.sidestep.me/categories_handler.php", true);
+            get_categories.send();
+                
+            get_categories.onreadystatechange = function() {
+                if (get_categories.readyState == 4 && get_categories.status == 200) {
+                    
+                    console.log("get_categories.responseText :");
+                    console.log(get_categories.responseText);
+
+                    var JSON_categories_text = get_categories.responseText;
+                    var categories_array = JSON.parse(JSON_categories_text);
+                    /*selected_category_index = $.map(categories_array, function(obj, index) {
+                        if(obj.id_number == selected_category_number) {
+                            return index;
+                        }
+                    });
+                    var selected_category = categories_array[selected_category_index];*/
+                    var selected_category = $('#category-selection option:selected').html();
+                    console.log(selected_category);
+                        
+                    //POPULATING EDITING FORM WITH CHECK LIST OF ALL POETS
+                    // RETRIEVING POETS DATA AS JSON FROM AN EXTERNAL DATABASE
+                    var get_over_here = new XMLHttpRequest();
+                    
+                    get_over_here.open("GET", "http://bx.sidestep.me/handler.php", true);
+                    get_over_here.send();
+                    
+                    get_over_here.onreadystatechange = function() {
+                        if (get_over_here.readyState == 4 && get_over_here.status == 200) {
+                            
+                            console.log("get_over_here.responseText :");
+                            console.log(get_over_here.responseText);
+
+                            var JSON_text = get_over_here.responseText;
+
+                            var poets_array = JSON.parse(JSON_text);
+
+                            console.log(poets_array);
+                            
+                            
+                            //POPULATING LIST OF POETS FOR EDITING CATEGORY
+                
+                            $('div#edit-category-poets').html(
+                            (function() {
+                                //Locked input field for category name
+                                var category_name = "<input type='text' name='category_name' value='" + selected_category + "' readonly><br/><br/>";
+                                //Adding checkboxes for each poet
+                                var gen_list = "";
+                                for (i = 0; i < poets_array.length; i++) {
+                                    gen_list = gen_list.concat(
+                                        "<input type='checkbox' id='" + poets_array[i].id_number + "' name='" + poets_array[i].id_number + "' value='"
+                                        + poets_array[i].first_name + " " + poets_array[i].last_name + "' "
+                                        + (function(){
+                                            is_checked = "";
+                                            for (a in categories_array) {
+                                                if (categories_array[a].id_number == poets_array[i].id_number) {
+                                                    if (categories_array[a][selected_category] == 1) {
+                                                        is_checked = "checked";
+                                                    }
+                                                }
+                                            }
+                                            return is_checked;
+                                        }())
+
+                                        +">" + poets_array[i].first_name + " " + poets_array[i].last_name + "<br />"
+                                        );	
+                                };
+                                return category_name + gen_list;
+                            })()
+                            );                  
+                        };
+                        
+                    };      
+                    
+                                        
+                                        
+                };
+            };
+            return false;
+        });
+
+        
+        // TRANSLATED POEMS
+
+        $('form#new-poet input:radio[name="translated"]').change(function() {
+            if ($(this).is(':checked') && $(this).val() == 'Yes') {
+                $('span#translation_text_add').removeClass('hidden');
+            } else {
+                $('span#translation_text_add').addClass('hidden');
+            };
+        });
+
+        $('form#edit-poet-step2 input:radio[name="translated"]').change(function() {
+            if ($(this).is(':checked') && $(this).val() == 'Yes') {
+                $('span#translation_text_edit').removeClass('hidden');
+            } else {
+                $('span#translation_text_edit').addClass('hidden');
+            };
+        });
+
+        // AUDIO
+        
+        $('input:radio[name="audio"]').change(function() {
+            if ($(this).is(':checked') && $(this).val() == 'Yes') {
+                $('span#audio_embed').removeClass('hidden');
+            } else {
+                $('span#audio_embed').addClass('hidden');
+            };
+        });
+        
+        //VIDEO
+
+        $('input:radio[name="video"]').change(function() {
+            if ($(this).is(':checked') && $(this).val() == 'Yes') {
+                $('span#video_embed').removeClass('hidden');
+            } else {
+                $('span#video_embed').addClass('hidden');
+            };
+        });
+        
+        
+
+    </script>
+
+</body>
+</html>

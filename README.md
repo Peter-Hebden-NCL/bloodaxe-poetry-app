@@ -1,5 +1,7 @@
 # Bloodaxe Poetry App - General Introduction
 
+## (TO INCLUDE):
+- link to good instructions on setting up a cordova app. (possibly in README for App Files)
 
 
 
