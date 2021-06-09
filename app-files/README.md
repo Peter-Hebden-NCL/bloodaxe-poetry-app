@@ -1,11 +1,18 @@
 # Bloodaxe Poetry App - App files instructions
 
+## To include:
+
+- Link to good instructions on setting up a cordova app. - https://cordova.apache.org/docs/en/latest/guide/cli/index.html
+- List of all plugins required on the Cordova build for the app
+- List of all JS libraries and frameworks used in the app, their locations in the file structure / files themselves, along with licenses (see JS folder)
+- Overview of the app's main features and functions (from main.js file)
+
 
 
 
 
 ---
-# SYNTAX GUIDE
+# MARKDOWN SYNTAX GUIDE
 ---
 
 Heading	

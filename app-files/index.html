@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     
-    
+    <!-- THIS IS THE MAIN HTML FILE FOR THE BLOODAXE POETRY APP. BELOW ARE THE TEMPLATES FOR EACH OF THE VIEWS USED IN  THE APP INTERFACE. MOST OF THE CONTENT IS POPULATED DYNAMICALLY FROM THE APP'S DATA FILES. SHORT SCRIPTS FOR HANDLING EMBEDDED CONTENT AND USER INTERACTIONS WITH THE DOM ARE ALSO INCLUDED HERE.  -->
+
     <head>
 		<meta charset="UTF-8">
         <meta http-equiv="Content-Security-Policy" content="default-src * 'self' data: gap://* https://ssl.gstatic.com 'unsafe-eval'; script-src * 'unsafe-inline'; connect-src *; style-src * 'unsafe-inline'; media-src *; img-src * data: content:; font-src *;">
@@ -11,10 +12,10 @@
         <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
 		<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
-		<link rel="stylesheet" href="themes/bloodaxe-dark.min.css" />      
+		<link rel="stylesheet" href="themes/bloodaxe-dark.min.css" /> <!-- Alternative themes in the 'themes' folder  -->
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Bloodaxe Poetry - version 1.2</title>
-        <meta name="description" content="">
+        <meta name="description" content="The Bloodaxe Poetry mobile app Version 1.2">
 		<meta name="author" content="Peter Hebden">
 		
     </head>
@@ -23,305 +24,310 @@
 
     <body>
 		
-		<!--
-		<div data-role="page" id="pass">
-			<div id="the-mask">
-				<input id="pass-box" name="pass-box" type="text" placeholder="password"/>
-			</div>
-		</div>
-		-->
+		<!-- Front Page -->
 
 		<div data-role="page" id="front">
 		
-		<div id="front-header" data-role="header" data-position="fixed" class="super_hide" data-tap-toggle="false">
-			<h1>Bloodaxe Poetry App</h1>
+			<div id="front-header" data-role="header" data-position="fixed" class="super_hide" data-tap-toggle="false">
+				<h1>Bloodaxe Poetry App</h1>
+				
+				<a href="#about" id="about-button" class="ui-btn">?</a>
+				
+				
+			</div>
 			
-			<a href="#about" id="about-button" class="ui-btn">?</a>
-			
-			
-		</div>
-		
-		<div data-role="main" class="ui-content" id="front_main">
-			
+			<div data-role="main" class="ui-content" id="front_main">
+				
 
-			<div id="browse_panel" class="front_panel">
-				<a href="#browse_options">
-					<div class="ui-btn button" id="browse-front">
-						<p>Browse</p>
-						<img id="browse-icon" src="img/browse-icon-inverted.png" />
+				<div id="browse_panel" class="front_panel">
+					<a href="#browse_options">
+						<div class="ui-btn button" id="browse-front">
+							<p>Browse</p>
+							<img id="browse-icon" src="img/browse-icon-inverted.png" />
+						</div>
+					</a>	
+				</div>
+
+				<div id="search_panel" class="front front_panel" style='text-align: center'>
+					<p>Search</p>
+					<div id="search_bar">
+						<input id="search_box" type="text" /> 
+						<a class="ui-btn ui-btn-corner-all" id="search_button"><!--Search--></a>
 					</div>
-				</a>	
+				</div>
+
+				
+		
+			</div>
+			
+			<div id="front-footer" data-role="footer" data-position="fixed"  class="super_hide" data-tap-toggle="false">
+
+				<!-- QUOTE GENERATOR HERE -->
+				<p id="quote-label">Read</p>
+				<a href="#read" id="quote_link">
+					<div id="quote_box">
+						<div id="quote_wrapper">
+							<!-- AUTO POPULATED -->
+						</div>
+						<div id="read_more"><!--Read more...--></div>
+					</div>
+				</a>
+			
 			</div>
 
-			<div id="search_panel" class="front front_panel" style='text-align: center'>
-				<p>Search</p>
-				<div id="search_bar">
-					<input id="search_box" type="text" /> 
-					<a class="ui-btn ui-btn-corner-all" id="search_button"><!--Search--></a>
-				</div>
-			</div>
-
-			
-	
 		</div>
-		
-		<div id="front-footer" data-role="footer" data-position="fixed"  class="super_hide" data-tap-toggle="false">
 
-			<!-- QUOTE GENERATOR HERE -->
-			<p id="quote-label">Read</p>
-			<a href="#read" id="quote_link">
-				<div id="quote_box">
-					<div id="quote_wrapper">
-						<!-- AUTO POPULATED -->
+		<!-- Content Browse Options Page -->
+
+		<div data-role="page" id="browse_options">
+				<div data-role="header" data-position="fixed">
+						<a href="#front" class="ui-btn ui-icon-home ui-btn-icon-left home-button">Home</a>
+						<h1>Browse by...</h1>
+				</div>
+
+				<div data-role="navbar">
+						<ul class="navbar front" id="top-nav">
+							<li class="ui-btn" id="poets-button"><a href="#browse"><p>Poets</p><img class='topnav_icon' src='img/bio-icon.png' onerror='this.style.display="none"'/></a></li>
+							<li class="ui-btn" id="poems-button"><a href="#browse"><p>Poems</p><img class='topnav_icon' src='img/text-icon.png' onerror='this.style.display="none"'/></a></li>
+							<li class="ui-btn" id="videos-button"><a href="#browse"><p>Videos</p><img 				class='topnav_icon' src='img/video-icon.png' onerror='this.style.display="none"'/></a></li>
+							<li class="ui-btn" id="audios-button"><a href="#browse"><p>Audio</p><img class='topnav_icon' src='img/speaker-icon.png' onerror='this.style.display="none"'/></a></li>
+							<li class="ui-btn" id="categories-button"><a href="#browse"><p>Categories</p><img class='topnav_icon' src='img/categories-icon.png' onerror='this.style.display="none"'/></a></li>
+							<li class="ui-btn" id="themes-button"><a href="#browse"><p>Themes</p><img class='topnav_icon' src='img/themes-icon-pencil.png' onerror='this.style.display="none"'/></a></li>
+							<li class="ui-btn" id="favourites-button"><a href="#browse"><p>Favourites</p><img class='topnav_icon' src='img/favourites-full-icon.png' onerror='this.style.display="none"'/></a></li>
+							<li class="ui-btn" id="about-button"><a href="#about"><p>About</p><img class='topnav_icon' src='img/info-icon.png' onerror='this.style.display="none"'/></a></li>
+						</ul>
 					</div>
-					<div id="read_more"><!--Read more...--></div>
-				</div>
-			</a>
-		
 		</div>
 
-	</div>
 
-	<div data-role="page" id="browse_options">
+		<!-- 'About the App' Page -->
+
+		<div data-role="page" id="about">
+			
 			<div data-role="header" data-position="fixed">
-					<a href="#front" class="ui-btn ui-icon-home ui-btn-icon-left home-button">Home</a>
-					<h1>Browse by...</h1>
+				<a href="#front" class="ui-btn ui-icon-home ui-alt-icon ui-btn-icon-left home-button">Home</a>
+				<h1>About</h1>
+			</div>
+			
+			<div data-role="main" class="ui-content">
+				
+				<p>Welcome to the <strong>Bloodaxe Poetry App</strong>!</p>
+
+				<p>This app has been developed in partnership with <strong>Newcastle University</strong> to allow readers to read, watch, listen to, and share poetry on their mobile devices. From the Home screen, you can <strong>Search</strong> the app for a particular poem or poet, or the allow yourself to be guided by the random opening lines appearing at the screen.</p>
+
+				<p>Content can be browsed by name of <strong>Poet</strong> and by title of <strong>Poem</strong>, or by poems featuring <strong>Audio</strong> or <strong>Video</strong> recordings. Poets are also sorted in <strong>Categories</strong> and poems featured in the app have been tagged with <strong>Themes</strong> to allow you to browse related content. Once you have added some poems to your <strong>Favourites</strong> list, you can use this option to navigate to them quickly.</p>
+
+				<p>After reading, listening to, or watching a poem, the app currently allows you to share poems and recommendations via social media and email, add the poet to your Favourites list, or tag the poem with themes. You can also change how the poem appears on the screen using the Display option.</p>
+
+				<p>The app currently features work around from around fifty Bloodaxe poets. In future versions, we hope to add more poets to the list, as well as improving the look and feel of the app, but we'd also like to add and improve other features based on the thoughts of poetry readers. Please <a href="mailto:peter.hebden2@ncl.ac.uk"><strong>email</strong></a> with any feedback you may have.</p>
+
+				
+
+			</div>
+			
+			<div data-role="footer" data-position="fixed">
+				<div id="connection_status"></div>
+				2021 &copy; Bloodaxe Books and Newcastle University<br />
+				<em>Bloodaxe Poetry App v1.2</em>
+				
 			</div>
 
-			<div data-role="navbar">
-					<ul class="navbar front" id="top-nav">
-						<li class="ui-btn" id="poets-button"><a href="#browse"><p>Poets</p><img class='topnav_icon' src='img/bio-icon.png' onerror='this.style.display="none"'/></a></li>
-						<li class="ui-btn" id="poems-button"><a href="#browse"><p>Poems</p><img class='topnav_icon' src='img/text-icon.png' onerror='this.style.display="none"'/></a></li>
-						<li class="ui-btn" id="videos-button"><a href="#browse"><p>Videos</p><img 				class='topnav_icon' src='img/video-icon.png' onerror='this.style.display="none"'/></a></li>
-						<li class="ui-btn" id="audios-button"><a href="#browse"><p>Audio</p><img class='topnav_icon' src='img/speaker-icon.png' onerror='this.style.display="none"'/></a></li>
-						<li class="ui-btn" id="categories-button"><a href="#browse"><p>Categories</p><img class='topnav_icon' src='img/categories-icon.png' onerror='this.style.display="none"'/></a></li>
-						<li class="ui-btn" id="themes-button"><a href="#browse"><p>Themes</p><img class='topnav_icon' src='img/themes-icon-pencil.png' onerror='this.style.display="none"'/></a></li>
-						<li class="ui-btn" id="favourites-button"><a href="#browse"><p>Favourites</p><img class='topnav_icon' src='img/favourites-full-icon.png' onerror='this.style.display="none"'/></a></li>
-						<li class="ui-btn" id="about-button"><a href="#about"><p>About</p><img class='topnav_icon' src='img/info-icon.png' onerror='this.style.display="none"'/></a></li>
+		</div>
+
+
+		<!-- Content Browsing Page (lists poets/poems to view) -->
+
+		<div data-role="page" id="browse">
+			
+			<div data-role="header" data-position="fixed">
+				<a href="#browse_options" id="back-browse" class="ui-btn ui-icon-arrow-l ui-alt-icon ui-btn-icon-left home-button">Browse</a>
+				<h1>Browse</h1>
+				<a id="random-browse" href="#read" class="ui-btn ui-icon-forward ui-alt-icon ui-btn-icon-left">Random</a>
+				
+				
+			</div>
+			
+			<div data-role="main" class="ui-content">
+				
+				<div data-role="navbar">
+				<ul class="navbar sub-navbar" id="poets-nav">
+					<li id="all-poets" class="ui-btn-active"><a href="#">All</a></li>
+					<li id="audio-poets"><a href="#">Audio</a></li>
+					<li id="video-poets"><a href="#">Video</a></li>
+				</ul>
+				</div>
+
+				<div data-role="navbar">
+				<ul class="navbar sub-navbar hidden" id="themes-nav">
+					<li id="all-themes" class="ui-btn-active"><a href="#">All</a></li>
+					<li id="bloodaxe-themes"><a href="#">Main themes</a></li>
+					<li id="my-themes"><a href="#">My themes</a></li>
+				</ul>
+				</div>
+				
+				<button class="hidden" id="clear_themes_button">Clear All</button>
+				<div class="content list hidden" id="themes-list"></div>
+				
+				<div class="content list hidden" id="categories-list"></div>
+				
+				<div class="content list" id="content-list"></div>
+				
+			</div>
+
+			<div id="scrollup_container" class="hidden"><a id="scrollup">Back to top</a></div>
+			
+
+		</div>
+
+		<!-- Content Reading Page -->
+
+		<div data-role="page" id="read">
+			
+			<div id='meta-expand' class="ui-btn meta-toggle hidden"><img src="img/expand-icon-inverted.png"></div>
+			<div id="read-header" data-role="header" data-position="fixed" data-tap-toggle="false">
+				
+				<div id='poem-nav' data-role="navbar">
+					<ul>
+						<li id="back-button-container"><!--back button populated here--></li>
+						<li><a id="text-audio-poem" href="#"><img src="img/text-icon-inverted.png" /></a></li>
+						<li><a id="video-poem" href="#"><img src="img/video-icon-inverted.png" /></a></li>
+						<li><a id="bio-poem" href="#"><img src="img/bio-icon-inverted.png" /></a></li>
+						<li><a id="random-browse" href="#read"><img src="img/random-icon-red.png" /></a></li>
 					</ul>
 				</div>
-	</div>
+
+				<div id='translation-nav' data-role="navbar">
+					<ul>
+						<li><a id="translated_poem" href="#" class="ui-btn">Translation</a></li>
+						<li><a id="original_poem" href="#" class="ui-btn">Original</a></li>
+					</ul>
+				</div>
+
+				<div id="display-title">
+					TITLE AND AUTHOR
+				</div>
+				<div id="audio-frame">
+						<!-- AUDIO OF POEM -->
+				</div>
 
 
-
-	<div data-role="page" id="about">
-		
-		<div data-role="header" data-position="fixed">
-			<a href="#front" class="ui-btn ui-icon-home ui-alt-icon ui-btn-icon-left home-button">Home</a>
-			<h1>About</h1>
-		</div>
-		
-		<div data-role="main" class="ui-content">
+				<!--PANELS-->
+				<div class="hidden panel" id="settings_panel">
+					<p>Line wrapping:</p>
+						<div class="ui-btn ui-btn-inline settings_option line_option active" id="line-wrapping">
+							<img src="img/wrap-icon-inverted.png" />
+						</div>
+						<div class="ui-btn ui-btn-inline settings_option line_option" id="line-nowrapping">
+							<img src="img/nowrap-icon-inverted.png" />
+						</div>
+					<p>Text size:</p>
+						<div class="ui-btn ui-btn-inline settings_option size_option" id="size-smaller">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
+						<div class="ui-btn ui-btn-inline settings_option size_option" id="size-icon">
+							<img src="img/size-icon-inverted.png" />
+						</div>
+						<div class="ui-btn ui-btn-inline settings_option size_option" id="size-larger">&nbsp;&nbsp;+&nbsp;&nbsp;</div>
+					<p>Colour:</p>
+						<div class="ui-btn ui-btn-inline settings_option text_colour_option active" id="black-on-white">Aa</div>
+						<div class="ui-btn ui-btn-inline settings_option text_colour_option" id="white-on-black">Aa</div>
+				</div>
+				
+				<div class="hidden panel" id="share_panel">
+					<p>Share this poet:</p>
+					<a class="ui-btn button" id="share_email_button" href="mailto:?subject=Poetry recommendation from the Bloodaxe Poetry App&body=Check this out!" target="_blank">Email</a>
+					<a class="ui-btn button" id="share_tweet_button" href="https://twitter.com/intent/tweet" target="_blank">Tweet</a>
+					<a class="ui-btn button" id="share_facebook_button">Facebook</a>
+				</div>
+				
+				<div class="hidden panel" id="tag_panel">
+					<input id="tags_box" type="text" placeholder="Tag this poet with a theme"/>
+					<button id="tag_submit">Submit</button>
+				</div>
 			
-			<p>Welcome to the <strong>Bloodaxe Poetry App</strong>!</p>
+			<!--BUTTONS-->
 
-			<p>This app has been developed in partnership with <strong>Newcastle University</strong> to allow readers to read, watch, listen to, and share poetry on their mobile devices. From the Home screen, you can <strong>Search</strong> the app for a particular poem or poet, or the allow yourself to be guided by the random opening lines appearing at the screen.</p>
+				<div id='poem-meta' data-role="navbar">
+					<ul>
+						<li><a id="settings_button" href="#" class="ui-btn"><img src="img/format-icon-inverted.png" /></a></li>
+						<li><a id="share_button" href="#" class="ui-btn"><img src="img/share-icon-inverted.png" /></a></li>
+						<li><a id="tag_button" href="#" class="ui-btn"><img src="img/themes-icon-pencil-inverted.png" /></a></li>
+						<li><a id="favourite" href="#" class="ui-btn"><img src="img/favourites-empty-icon-inverted.png" /></a></li>
+						<li><a id="meta-collapse" href="#" class="ui-btn meta-toggle"><img src="img/collapse-icon-inverted.png" /></a></li>
+					</ul>
+				</div>
 
-			<p>Content can be browsed by name of <strong>Poet</strong> and by title of <strong>Poem</strong>, or by poems featuring <strong>Audio</strong> or <strong>Video</strong> recordings. Poets are also sorted in <strong>Categories</strong> and poems featured in the app have been tagged with <strong>Themes</strong> to allow you to browse related content. Once you have added some poems to your <strong>Favourites</strong> list, you can use this option to navigate to them quickly.</p>
 
-			<p>After reading, listening to, or watching a poem, the app currently allows you to share poems and recommendations via social media and email, add the poet to your Favourites list, or tag the poem with themes. You can also change how the poem appears on the screen using the Display option.</p>
 
-			<p>The app currently features work around from around fifty Bloodaxe poets. In future versions, we hope to add more poets to the list, as well as improving the look and feel of the app, but we'd also like to add and improve other features based on the thoughts of poetry readers. Please <a href="mailto:peter.hebden2@ncl.ac.uk"><strong>email</strong></a> with any feedback you may have.</p>
-
-			
-
-		</div>
-		
-		<div data-role="footer" data-position="fixed">
-			<div id="connection_status"></div>
-			2018 &copy; Bloodaxe Books and Newcastle University<br />
-			<em>Bloodaxe Poetry App v1.1</em>
-			
-		</div>
-
-	</div>
-
-	<div data-role="page" id="browse">
-		
-		<div data-role="header" data-position="fixed">
-			<a href="#browse_options" id="back-browse" class="ui-btn ui-icon-arrow-l ui-alt-icon ui-btn-icon-left home-button">Browse</a>
-			<h1>Browse</h1>
-			<a id="random-browse" href="#read" class="ui-btn ui-icon-forward ui-alt-icon ui-btn-icon-left">Random</a>
-			
-			
-		</div>
-		
-		<div data-role="main" class="ui-content">
-			
-			<div data-role="navbar">
-			<ul class="navbar sub-navbar" id="poets-nav">
-				<li id="all-poets" class="ui-btn-active"><a href="#">All</a></li>
-				<li id="audio-poets"><a href="#">Audio</a></li>
-				<li id="video-poets"><a href="#">Video</a></li>
-			</ul>
 			</div>
-
-			<div data-role="navbar">
-			<ul class="navbar sub-navbar hidden" id="themes-nav">
-				<li id="all-themes" class="ui-btn-active"><a href="#">All</a></li>
-				<li id="bloodaxe-themes"><a href="#">Main themes</a></li>
-				<li id="my-themes"><a href="#">My themes</a></li>
-			</ul>
-			</div>
-			
-			<button class="hidden" id="clear_themes_button">Clear All</button>
-			<div class="content list hidden" id="themes-list"></div>
-			
-			<div class="content list hidden" id="categories-list"></div>
-			
-			<div class="content list" id="content-list"></div>
-			
-		</div>
-
-		<div id="scrollup_container" class="hidden"><a id="scrollup">Back to top</a></div>
 		
-
-	</div>
-
-	<div data-role="page" id="read">
-		
-		<div id='meta-expand' class="ui-btn meta-toggle hidden"><img src="img/expand-icon-inverted.png"></div>
-		<div id="read-header" data-role="header" data-position="fixed" data-tap-toggle="false">
 			
-			<div id='poem-nav' data-role="navbar">
-				<ul>
-					<li id="back-button-container"><!--back button populated here--></li>
-					<li><a id="text-audio-poem" href="#"><img src="img/text-icon-inverted.png" /></a></li>
-					<li><a id="video-poem" href="#"><img src="img/video-icon-inverted.png" /></a></li>
-					<li><a id="bio-poem" href="#"><img src="img/bio-icon-inverted.png" /></a></li>
-					<li><a id="random-browse" href="#read"><img src="img/random-icon-red.png" /></a></li>
-				</ul>
-			</div>
-
-			<div id='translation-nav' data-role="navbar">
-				<ul>
-					<li><a id="translated_poem" href="#" class="ui-btn">Translation</a></li>
-					<li><a id="original_poem" href="#" class="ui-btn">Original</a></li>
-				</ul>
-			</div>
-
-			<div id="display-title">
-				TITLE AND AUTHOR
-			</div>
-			<div id="audio-frame">
-					<!-- AUDIO OF POEM -->
-			</div>
-
-
-			<!--PANELS-->
-			<div class="hidden panel" id="settings_panel">
-				<p>Line wrapping:</p>
-					<div class="ui-btn ui-btn-inline settings_option line_option active" id="line-wrapping">
-						<img src="img/wrap-icon-inverted.png" />
+			<div data-role="main" class="ui-content">
+				
+			<div class="content page" id="poem-display">
+				<!--Invisible container for canvas -->
+				<span id="canvas_container" class="hidden"></span>
+				<!-- Invisible container for image -->
+				<span id="result" class="hidden"></span>
+				<div class="display-tab hidden" id="text-audio">
+					<div id="text-frame">
+						<!-- TEXT OF POEM -->
 					</div>
-					<div class="ui-btn ui-btn-inline settings_option line_option" id="line-nowrapping">
-						<img src="img/nowrap-icon-inverted.png" />
-					</div>
-				<p>Text size:</p>
-					<div class="ui-btn ui-btn-inline settings_option size_option" id="size-smaller">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
-					<div class="ui-btn ui-btn-inline settings_option size_option" id="size-icon">
-						<img src="img/size-icon-inverted.png" />
-					</div>
-					<div class="ui-btn ui-btn-inline settings_option size_option" id="size-larger">&nbsp;&nbsp;+&nbsp;&nbsp;</div>
-				<p>Colour:</p>
-					<div class="ui-btn ui-btn-inline settings_option text_colour_option active" id="black-on-white">Aa</div>
-					<div class="ui-btn ui-btn-inline settings_option text_colour_option" id="white-on-black">Aa</div>
-			</div>
-			
-			<div class="hidden panel" id="share_panel">
-				<p>Share this poet:</p>
-				<a class="ui-btn button" id="share_email_button" href="mailto:?subject=Poetry recommendation from the Bloodaxe Poetry App&body=Check this out!" target="_blank">Email</a>
-				<a class="ui-btn button" id="share_tweet_button" href="https://twitter.com/intent/tweet" target="_blank">Tweet</a>
-				<a class="ui-btn button" id="share_facebook_button">Facebook</a>
-			</div>
-			
-			<div class="hidden panel" id="tag_panel">
-				<input id="tags_box" type="text" placeholder="Tag this poet with a theme"/>
-				<button id="tag_submit">Submit</button>
-			</div>
-		
-		<!--BUTTONS-->
-
-			<div id='poem-meta' data-role="navbar">
-				<ul>
-					<li><a id="settings_button" href="#" class="ui-btn"><img src="img/format-icon-inverted.png" /></a></li>
-					<li><a id="share_button" href="#" class="ui-btn"><img src="img/share-icon-inverted.png" /></a></li>
-					<li><a id="tag_button" href="#" class="ui-btn"><img src="img/themes-icon-pencil-inverted.png" /></a></li>
-					<li><a id="favourite" href="#" class="ui-btn"><img src="img/favourites-empty-icon-inverted.png" /></a></li>
-					<li><a id="meta-collapse" href="#" class="ui-btn meta-toggle"><img src="img/collapse-icon-inverted.png" /></a></li>
-				</ul>
-			</div>
-
-
-
-		</div>
-	
-		
-		<div data-role="main" class="ui-content">
-			
-		<div class="content page" id="poem-display">
-			<!--Invisible container for canvas -->
-			<span id="canvas_container" class="hidden"></span>
-			<!-- Invisible container for image -->
-			<span id="result" class="hidden"></span>
-			<div class="display-tab hidden" id="text-audio">
-				<div id="text-frame">
-					<!-- TEXT OF POEM -->
+				</div>
+				<div class="display-tab hidden" id="video">
+					<!-- VIDEO OF POEM -->
+				</div>
+				<div class="display-tab hidden" id="bio">
+					<!-- POET BIO -->
 				</div>
 			</div>
-			<div class="display-tab hidden" id="video">
-				<!-- VIDEO OF POEM -->
-			</div>
-			<div class="display-tab hidden" id="bio">
-				<!-- POET BIO -->
-			</div>
+			
+
 		</div>
+
+
+		<script type="text/javascript" src="cordova.js"></script>
+
+
+		<!-- JS script to prevent app view from displaying non-app web content etc. -->
+		<script type="text/javascript">
+			window.addEventListener('load', function () {
+			$(document).on('click', 'a[target="_system"],a[target="_blank"]', function (e) {
+				e.preventDefault();
+				var url = this.href;
+				window.open(url,"_system");
+			});
+			}, false);
+		</script>
+
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/jquery.mobile-1.4.5.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+		<script type="text/javascript" src="js/velocity.min.js"></script>
+		<script src="http://connect.soundcloud.com/sdk.js"></script>
+		<script src="https://player.vimeo.com/api/player.js"></script>
+		<script type="text/javascript" src="js/fb/snippet.js"></script>
+		<script type="text/javascript" src="js/hammer.js"></script>
+		<script type="text/javascript" src="js/jquery.hammer.js"></script>
+
+		<script src="https://f.vimeocdn.com/js/froogaloop2.min.js"></script>
+		<script type="text/javascript" src="js/html2canvas-0.5.0-beta4/dist/html2canvas.js"></script>
+
+		<script src="js/iphone-inline-video.js"></script>
 		
+		<script type="text/javascript" src="js/index.js"></script>
 
-	</div>
+		<!--JS script for handling video player loading-->
+		<script>
+		if (navigator.onLine) {
+			var iframe = $('iframe')[0],
+					player = $f(iframe),
+					status = $('.status');
 
+					player.addEvent('ready', function() {
+						player.api('pause');
+					});
+		};
+		</script>
 
-	<script type="text/javascript" src="cordova.js"></script>
-
-	<script type="text/javascript">
-		window.addEventListener('load', function () {
-		  $(document).on('click', 'a[target="_system"],a[target="_blank"]', function (e) {
-			e.preventDefault();
-			var url = this.href;
-			window.open(url,"_system");
-		  });
-		}, false);
-	</script>
-
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/jquery.mobile-1.4.5.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
-	<script type="text/javascript" src="js/velocity.min.js"></script>
-	<script src="http://connect.soundcloud.com/sdk.js"></script>
-	<script src="https://player.vimeo.com/api/player.js"></script>
-	<script type="text/javascript" src="js/fb/snippet.js"></script>
-	<script type="text/javascript" src="js/hammer.js"></script>
-	<script type="text/javascript" src="js/jquery.hammer.js"></script>
-
-	<script src="https://f.vimeocdn.com/js/froogaloop2.min.js"></script>
-	<script type="text/javascript" src="js/html2canvas-0.5.0-beta4/dist/html2canvas.js"></script>
-
-	<script src="js/iphone-inline-video.js"></script>
-	
-	<script type="text/javascript" src="js/index.js"></script>
-
-	<script>
-	if (navigator.onLine) {
-		var iframe = $('iframe')[0],
-				player = $f(iframe),
-				status = $('.status');
-
-				player.addEvent('ready', function() {
-					player.api('pause');
-				});
-	};
-	</script>
-
-</body>
+	</body>
 </html>

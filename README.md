@@ -1,7 +1,10 @@
 # Bloodaxe Poetry App - General Introduction
 
-## (TO INCLUDE):
-- link to good instructions on setting up a cordova app. (possibly in README for App Files)
+This code repository is part of the PhD thesis 'Creative Digital Interventions into Poetry' by Peter Hebden, Newcastle University 2021. This source code is shared under the Creative Commons Attribution-ShareAlike 4.0 International license (CC BY-SA 4.0). A copy of this license is viewable here: https://creativecommons.org/licenses/by-sa/4.0/legalcode.
+
+
+
+
 
 
 

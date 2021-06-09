@@ -1,19 +1,28 @@
 
+/*
+
+MAIN CONTROLLER FILE FOR THE BLOODAXE POETRY APP
+
+The following code handles the majority of the data and functions that run the Bloodaxe App user interface. 
+
+*/
+
+
 
 
 //
-// APP VARIABLES
+// Section 1 - APP VARIABLES - Setting the inital data to feed the user interface
 //
 
+// storing information on the device and software
 browser_info = navigator.appVersion;
 
-var source_url = "http://bx.sidestep.me";
-//var news_photo_source = source_url + "/img/news_photo.jpg";
+// URL for the serverside scripts feeding the app data
+var source_url = "http://web.address.here";
 
 var offline_poets_array;
 var poets_array;
 var categories_array;
-//var news_array;
 var array_source = "Connecting...";
 var previous_mode;
 var current_mode = "front";
@@ -35,8 +44,7 @@ var selected_thing = "";
 canvas_options = {}; //See html2canvas documentation for options
 
 //Soundcloud ID
-//do via AJAX from server? (more secure?)
-soundcloud_id = "a00ba5d43da1e0be6a98405e062206ef";
+soundcloud_id = "xxxxxxxxxxxxxxxxxxxxxxxx";
 
 // Getting saved tags, if any
 if (localStorage.my_themes != undefined) {
@@ -56,7 +64,7 @@ if (localStorage.fav_array != undefined) {
     fav_array = [];
 };
 
-//Display options - possibly redundant now?
+//Display options - specifying CSS values for each option
 display_options = {
     "size-small" 	: {
                         "font-size": "0.7em",
@@ -96,7 +104,7 @@ var NULL = 0;
 
 
 //
-// APP FUNCTIONS 
+// Section 2 - APP FUNCTIONS - Commands triggered by user actions
 //
 
 
@@ -115,7 +123,6 @@ function responsive_display(page) {
 			"height": (fullHeight*0.4)
 		});
 		$("#search_box").css({
-			//"margin-top": (fullHeight*0.05)
 			"margin-top": (fullHeight/50),
 			"margin-bottom": (fullHeight/50),
 			"height": (fullHeight/50)
@@ -124,16 +131,13 @@ function responsive_display(page) {
 			"max-width": (fullWidth*0.5)
 		});
 		$("#news_headline").css({
-			//"padding-top": (fullHeight*0.05)
 			"padding-top": (fullHeight/20)
 		});
 		$("#quote_box p").css({
-			//"font-size": (fullHeight*0.02)
 			"font-size": (fullHeight/50)
 		});
 		$("#quote_wrapper").css({
 			"width": (fullWidth*0.9),
-			//"margin-left": (fullWidth*0.05)
 			"margin-left": (fullWidth/20)
 		});
 	}	
@@ -156,7 +160,6 @@ function responsive_display(page) {
 		});
 	}
 
-	//Any more? Check browse screens
 	
 };
 
@@ -253,8 +256,6 @@ function get_data() {
 							window.quoted_poem = quoted_poet.poem_text;
 							$("#debug_author").html(quoted_poet.id_name);
 
-							//NEED TO TAKE OUT EPIGRAPHS IF THERE (add HTML class first)
-
 							//generating line 1
 							window.quoted_line_1 = quoted_poem.slice((quoted_poem.indexOf("<p")),(quoted_poem.indexOf("</p>")+4));
 							//generating line 2
@@ -269,7 +270,7 @@ function get_data() {
 							}
 						};
 						
-						//Checking quote is suitable - COULD BE FIXED MORE THOROUGHLY BY INCORPORATING INTO random_quote FUNCTION ABOVE
+						//Checking quote is suitably formatted
 						do {
 							random_quote()
 						} while (
@@ -329,45 +330,11 @@ function get_data() {
 	});
 
 	
-	  
-
-	//
-	// NEWS RETRIEVAL
-	//
-	/*
-	var jqxhr_news = $.getJSON( source_url+"/news_handler.php", function() {
-		console.log( "jqxhr_news success" );
-	  })
-		.done(function() {
-		  console.log( "second success" );
-		  news_array = jqxhr_news.responseJSON;
-		  console.log(news_array);
-		  $("#news_panel").removeClass("hidden");
-		  $("#news_link").attr("href", news_array[1]);
-		  $("#news_photo_container").css({
-			  "background-image" : "url("+ news_photo_source +")"
-		  });
-		  $("#news_headline").html(news_array[0])
-		  
-		})
-		.fail(function() {
-		  console.log( "News info: error getting online source" )
-		  $("#news_panel").addClass("hidden");
-		})
-		.always(function() {
-		  	console.log( "complete" );
-		});
-	   
-	  jqxhr_news.complete(function() {
-		console.log( "second complete" );
-	  });
-	*/
 
 	//
     //CATEGORIES RETREIVAL
 	//
 
-	// THIS NEEDS REPLACING WITH ONLINE VERSION - categories_handler.php
 	var jqxhr_cat_on = $.getJSON( "categories_array.json", function() {
 		console.log( "jqxhr_cat_on success" );
 	})
@@ -573,7 +540,6 @@ function change_mode(mode) {
 			$("#text-frame").scrollTop(0);
 		},500);
 		
-        //$('li#menu img').attr("src", "img/icons/menu.png");
     }
     
     if (mode == 'browse_read') {
@@ -597,7 +563,7 @@ function change_mode(mode) {
     connection_update(array_source);
 };
 
-// NAV FUNCTIONS (Some possibly redundant?)
+// NAV FUNCTIONS 
 
 //Return to home page, collapse all sub-menus
 var go_home = function() {
@@ -669,7 +635,7 @@ var list_content = function(display) {
 							poets_array[i].last_name[0].toLowerCase() != poets_array[(i-1)].last_name[0].toLowerCase()
 							)
 						) {
-							//Generating list element for alphabetical selection <<< LINKS TO ANCHORS NOT WORKING
+							//Generating list element for alphabetical selection 
 							$("#az_select").append(
 								"<li class='az_link' id='"+poets_array[i].last_name[0].toLowerCase()+"_link'><p>"
 								+ poets_array[i].last_name[0]
@@ -815,12 +781,10 @@ var display_item = function() {
 
     if (fav_array.indexOf(selected_id_number) != -1) {
         $('#favourite img').attr("src", "img/favourites-full-icon-inverted.png");
-        //$('#favourite').html("Remove from Favourites");
 		$('#favourite').addClass('is_fav');
 		console.log("is fav");
     } else {
         $('#favourite img').attr("src", "img/favourites-empty-icon-inverted.png");
-        //$('#favourite').html("Add to Favourites");
 		$('#favourite').removeClass('is_fav');
 		console.log("not fav");
 	};
@@ -937,14 +901,12 @@ var display_item = function() {
         +soundcloud_id+
         '">Unable to load audio at this time.</audio>'
         );
-        //$('#text-audio-poem').html('Text and Audio');
     } else {
         $('#audio-frame').addClass('hidden');
-        //$('#text-audio-poem').html('Text');
     };			
 	
 
-
+	//CREATING SHAREABLE POEM IMAGE
 	//POPULATE CANVAS WITH DELAY
 
 	//Delaying html2canvas to give page time to load
@@ -971,7 +933,7 @@ var display_item = function() {
 		$("#capture_area").css({
 			"background-color":"inherit", 
 			"color":"inherit"
-		}); //could be taken from current display settings?
+		}); 
 		$("#intext_title, #intext_byline").removeClass("hidden");
 
 		html2canvas(document.querySelector("#capture_area"), canvas_options).then(function(canvas) {
@@ -1053,10 +1015,8 @@ var display_item = function() {
 					},500);
         } else {
         $('#video').html(
-        //VIDEO EMBED v.1:
+        //VIDEO EMBED
         poets_array[selected_array_index].video_embed
-        //VIDEO EMBED v.2 (used with click event on img):
-        //"<img id='play_vid' src='img/icons/play_button.png' />"
         );
 		}
 		
@@ -1147,7 +1107,6 @@ function categories_browser() {
     
     //DISPLAYING CATEGORIES
 	gen_list = "";
-	//gen_list = gen_list.concat("<label for='categories'>Categories:</label>");
 	gen_list = gen_list.concat("<select id='cat-select'><option value=''></option>");
     for (c in category_names) {
         if (category_names[c] != 'id_number') {
@@ -1170,7 +1129,6 @@ function categories_browser() {
 	};
 	gen_list = gen_list.concat("</select>");
     $('#categories-list').html(gen_list);
-    //('#categories-list').css({"height" : "16em"});
     $("#content-list").removeClass('hidden');
 	$('#content-list').html("<p class='message'>Select a category to view poets.</p>");
 	
@@ -1205,12 +1163,10 @@ function categories_results_display() {
         );
     }	
     if (gen_list == '<ul>') {
-        //$('#categories-list').css({"height" : "16em"});
         gen_list = "<p class='message'>Sorry, that category is currently empty.</p>";
     } else {
         gen_list = gen_list.concat("</ul>");
     };
-    //$('#categories-list').css({"height" : "8em"});
     $('#content-list').html(gen_list);
     
 };
@@ -1346,7 +1302,6 @@ function search_cycle(word) {
 		console.log("search_display()");
 		browse_title = "Search";
 		change_mode('browse');
-		//$('.content').addClass('hidden');
 		$('ul.navbar li').removeClass('active ui-btn-active');
 		$('.sub-navbar').addClass('hidden');
 		$('#categories-list, #themes-list').addClass('hidden');
@@ -1390,7 +1345,6 @@ function favourites_display() {
     $('.sub-navbar').addClass('hidden');
     $('#content-list').removeClass('hidden');
     $('#content-list').empty();
-    // DOESN'T SEEM TO BE DISPLAYING ON WEB VERSION?
     $('#content-list').html(
         "<ul>" +
         (function() {
