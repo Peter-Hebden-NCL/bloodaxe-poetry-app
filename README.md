@@ -1,86 +1,19 @@
 # Bloodaxe Poetry App - General Introduction
 
-This code repository is part of the PhD thesis 'Creative Digital Interventions into Poetry' by Peter Hebden, Newcastle University 2021. This source code is shared under the Creative Commons Attribution-ShareAlike 4.0 International license (CC BY-SA 4.0). A copy of this license is viewable here: https://creativecommons.org/licenses/by-sa/4.0/legalcode.
+
+
+**The Bloodaxe Poetry app is a mobile application for iOS and Android created in partnership with the UK poetry publisher Bloodaxe Books. It allows users to read, watch and hear poems by Bloodaxe poets. It also provides information about the poets and allows users to share poems, and create a Favourites list.**
 
 
 
+### Content
+
+This code repository contains the files for building the Bloodaxe Poetry app, as well as the files for the online interface for updating the app's content, which was built for use by Bloodaxe staff. Details of each can be found in the README files within their respective folders.
 
 
 
+### Attribution
+
+This code repository is part of the PhD thesis 'Poetry in Digital Media' by Peter Hebden, Newcastle University 2021. This source code is shared under the Creative Commons Attribution-ShareAlike 4.0 International license (CC BY-SA 4.0). A copy of this license is viewable here: https://creativecommons.org/licenses/by-sa/4.0/legalcode.
 
 
----
-# SYNTAX GUIDE
----
-
-Heading	
-# H1
-## H2
-### H3
-
-Bold	
-**bold text**
-
-Italic	
-*italicized text*
-
-Blockquote	
-> blockquote
-
-Ordered List	
-1. First item
-2. Second item
-3. Third item
-
-Unordered List	
-- First item
-- Second item
-- Third item
-
-Code	
-`code`
-
-Horizontal Rule	
----
-
-Link	
-[title](https://www.example.com)
-
-Image	
-![alt text](image.jpg)
-
-
-Table	
-| Syntax | Description |
-| ----------- | ----------- |
-| Header | Title |
-| Paragraph | Text |
-
-Fenced Code Block	
-```
-{
-  "firstName": "John",
-  "lastName": "Smith",
-  "age": 25
-}
-```
-
-Footnote	
-Here's a sentence with a footnote. [^1]
-
-[^1]: This is the footnote.
-
-Heading ID	
-### My Great Heading {#custom-id}
-
-Definition List	
-term
-: definition
-
-Strikethrough	
-~~The world is flat.~~
-
-Task List	
-- [x] Write the press release
-- [ ] Update the website
-- [ ] Contact the media

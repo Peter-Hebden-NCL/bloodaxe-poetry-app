@@ -1,3 +1,0 @@
-- Write README files
-- Add clear comments to code
-- Replace Bloodaxe poets with fake poets
