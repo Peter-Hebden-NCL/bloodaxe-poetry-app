@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-
+<!--Model for the 'Add New Category' page on the content management system for the Bloodaxe Poetry app-->
 <?php 
 
 foreach ($_POST as $key => $value) {

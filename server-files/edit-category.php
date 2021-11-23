@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-
+<!--Model for the 'Edit Category' page on the content management system for the Bloodaxe Poetry app-->
 <?php 
 
     $file = fopen("categories_array.json","r");

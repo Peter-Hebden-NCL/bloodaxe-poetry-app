@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-
+<!--Model for the 'Edit Poet' page on the content management system for the Bloodaxe Poetry app-->
 <?php 
     $replaced = array(" ","<",">","‘","’","'","“","”","\"");
     $replacer = array(" ","&lt;","&gt;","&lsquo;","&rsquo;","&apos;","&ldquo;","&rdquo;","&quot;");
@@ -93,12 +93,6 @@
                 $uploadOk = 0;
             }
 
-            /*if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-            && $imageFileType != "gif" ) {
-                echo "<span style='color:red'>Only JPG, JPEG, PNG & GIF files are allowed.</span><br />";
-                $uploadOk = 0;
-            }*/
-
             // Check if $uploadOk is set to 0 by an error
             if ($uploadOk == 0) {
                 echo "<span style='color:red'>Sorry, your file was not uploaded.</span><br /><br /><br />";
@@ -151,10 +145,10 @@
     echo "<a href='index.html'><-- Back to form</a>";
     
     //connecting to POETSDB
-    $servername = "db713125457.db.1and1.com";
-    $username = "dbo713125457";
-    $password = "H3xham66";
-    $dbname = "db713125457";
+    $servername = "DATABASE ADDRESS";
+    $username = "USER";
+    $password = "PASSWORD";
+    $dbname = "DATABASE NAME";
     
     $conn = new mysqli($servername, $username, $password,$dbname);
     

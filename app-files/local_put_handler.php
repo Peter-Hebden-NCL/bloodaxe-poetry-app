@@ -1,5 +1,6 @@
 <?php
-
+    //This script saves any Themes that the user adds to a poem in the app.
+    
     header('content-type: application/json; charset=utf-8');
     header("access-control-allow-origin: *");
 

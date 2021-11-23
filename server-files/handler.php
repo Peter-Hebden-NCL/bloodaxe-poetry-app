@@ -1,10 +1,10 @@
 <?php
-
+    /* Script to allow the Bloodaxe Poetry mobile app access to the online list of poets and poems */
     header('content-type: application/json; charset=utf-8');
     header("access-control-allow-origin: *");
 
     //open connection to mysql db
-    $connection = mysqli_connect("db713125457.db.1and1.com","dbo713125457","H3xham66","db713125457") or die("!Error " . mysqli_error($connection));
+    $connection = mysqli_connect("DATABASE ADDRESS","USER","PASSWORD","DATABASE NAME") or die("!Error " . mysqli_error($connection));
 
     //charset
     mysqli_set_charset($connection, 'utf8');
