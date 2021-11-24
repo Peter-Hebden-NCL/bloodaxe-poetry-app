@@ -40,3 +40,4 @@ The app's functions are all controlled from the index.js file within the 'js' fo
 Image assets for the app's interface can be found in the 'img' and 'themes' folders. 
 
 The two JSON files contain the offline versions of the app data - the information on poets, poems, and categories within the app - which is used by the app in the event that it cannot establish a connection with the online database.
+
